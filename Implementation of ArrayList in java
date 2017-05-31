@@ -1,0 +1,83 @@
+/* Implementation of ArrayList */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class myList<E>
+{
+    private int capacity = 10;
+    private Object[] arr;
+    private int size=0;
+    
+    public myList()
+    {
+        arr = new Object[capacity];
+    }
+    
+    public void add(E e)
+    {
+        if(size==capacity)
+        {
+            addmore();
+        }
+        
+        arr[size++]=e;
+    }
+    
+    public void addmore()
+    {
+        int newcap = arr.length*2;
+        arr = Arrays.copyOf(arr, newcap);
+    }
+    
+    public E get(int index)
+    {
+        if(index>=size || index<0){
+            throw new IndexOutOfBoundsException("Index:" + index + " size:" + size);}
+        return (E) arr[index];
+    }
+    
+    public int size()
+    {
+        return size;
+    }
+    
+    public void remove(int index)
+    {
+        if(index>=size || index<0){
+            throw new IndexOutOfBoundsException("Index:" + index + " size:" + size);}
+        
+        for(int i=index; i<size-1; i++)
+        {
+            arr[i]=arr[i+1];
+        }
+        size--;
+    }
+    
+    public void show()
+    {
+        for(int i=0; i<size; i++)
+        {
+            System.out.print(arr[i]+"  ");
+        }
+    }
+}
+
+class Main{
+
+     public static void main(String []args){
+        myList<Integer> l = new myList();
+        l.add(1);
+        l.add(2);
+        l.add(6);
+        
+        l.show();
+        
+        int i=l.get(2);
+        System.out.print(i);
+        l.remove(2);
+        l.show();
+        l.remove(2);
+     }
+}
