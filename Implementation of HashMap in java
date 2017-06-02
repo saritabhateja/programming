@@ -1,0 +1,184 @@
+/* Implementation of HashMap in java */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class HashMapCustom
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		myHashMap<Integer, Integer> myHash = new myHashMap<Integer, Integer>();
+    
+    myHash.put(50,85);
+    myHash.put(85,96);
+    myHash.put(85,0);
+    myHash.put(90,35);
+    
+    
+    
+    System.out.println("value corresponding to key 50="+ myHash.get(50));
+    System.out.println("value corresponding to key 85="
+                        + myHash.get(85));
+    
+    System.out.println("\n\nvalue corresponding to key 50 removed: "
+                        + myHash.remove(50));
+    System.out.println("\n\nvalue corresponding to key 50 removed: "
+                        + myHash.remove(50));
+    
+    myHash.display();
+  }
+}
+
+
+class myHashMap<K, V>
+{
+ 	private myLinkedList<K,V>[] table;
+  	private int capacity = 16;
+  
+  	class myLinkedList<K,V>
+    {
+      K key;
+      V value;
+      myLinkedList<K,V> next;
+    
+  
+  		public myLinkedList(K key, V value, myLinkedList<K,V> next)
+    	{
+      	this.key=key;;
+      	this.value=value;
+      	this.next = next;
+    
+        }
+
+    }
+  	public myHashMap()
+    {
+      table = new myHashMap.myLinkedList[capacity];
+      
+    }
+
+  public void put(K mykey, V myvalue)
+  {
+    int hash;
+    
+    if(mykey!=null)
+    	 hash= hash(mykey);
+      else
+        hash=0;
+    
+    	myLinkedList<K,V> myEntry = new myLinkedList(mykey, myvalue, null);
+    
+    	if(table[hash]==null)
+      		table[hash]=myEntry;
+    
+      	else{
+        myLinkedList<K,V> prev=null;
+        myLinkedList<K,V> curr = table[hash];
+          
+          while(curr!=null){
+            if(curr.key.equals (mykey))
+            {
+             	curr.value=myEntry.value;
+                 return;
+            }
+              
+            prev=curr;
+            curr=curr.next;
+          }
+          prev.next=myEntry;
+        }
+    }
+  
+  
+      
+      public V get(K key)
+      {
+        int hash;
+        if (key==null)
+        	hash=0;
+        
+        else
+           hash= hash(key);
+          if(table[hash]==null)
+            return null;
+          else{
+            myLinkedList<K,V> trav = table[hash];
+            
+            while(trav!=null)
+            {
+              if(trav.key.equals(key))
+                return trav.value;
+              trav=trav.next;
+            }
+            
+          }
+            return null;
+      }
+   
+      
+  
+  
+  public boolean remove(K delkey)
+  {
+    int hash;
+    if(delkey==null)
+    	hash=0;
+    
+    else
+    	 hash= hash(delkey);
+    	
+    	if(table[hash]==null)
+          return false;
+    	
+    	else{
+      		myLinkedList<K,V> prev = null;
+          	myLinkedList<K,V> curr = table[hash];
+          
+          while(curr!=null)
+          {
+            if (curr.key.equals(delkey))
+            {
+              if(prev==null)
+              {
+                table[hash]=table[hash].next;
+                return true;
+              }
+              
+              else{
+                prev.next=curr.next;
+                return true;
+              }
+              
+            }
+              
+              prev=curr;
+              curr=curr.next;
+            }
+          
+        }
+    	return false;
+  }
+
+  
+  
+  public void display(){
+      
+      for(int i=0;i<capacity;i++){
+          if(table[i]!=null){
+                 myLinkedList<K, V> entry=table[i];
+                 while(entry!=null){
+                       System.out.print("{"+entry.key+"="+entry.value+"}" +" ");
+                       entry=entry.next;
+                 }
+          }
+      }             
+   
+   }
+    
+  
+  private int hash(K key)
+  {
+    return Math.abs(key.hashCode())%capacity;
+  }
+}
