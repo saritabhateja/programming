@@ -1,0 +1,35 @@
+/* Determine if string has all Unique characters (using boolean array) */
+/* Assuming ASCII string */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class StringUnique
+{
+	public static void main (String[] args) 
+	{
+		Uniquechars u = new Uniquechars();
+		String str = "notUnique";
+		boolean result = u.isUniqueChars(str);
+		System.out.println(result);
+	}
+}
+
+class Uniquechars
+{
+    public boolean isUniqueChars(String str)
+    {
+        if(str.length()>128) return false;
+        
+        boolean[] arr_bool = new boolean[128];
+        for(int i=0; i<str.length(); i++)
+        {
+            int val = str.charAt(i);
+            if(arr_bool[val]) return false;
+            arr_bool[val] = true;
+        }
+        
+        return true;
+    }
+}
