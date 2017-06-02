@@ -1,0 +1,60 @@
+/* URLify */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class URLify
+{
+	public static void main (String[] args)
+	{
+		String str = "Hey you there    ";
+		char[] str1 = str.toCharArray();
+		str = str.replaceAll("\\s+$", "");
+		//str = str.replaceAll("\\s","%020"); // Using regex
+		int len = str.length();
+		CreateURL c = new CreateURL();
+		String result = c.toCreateURL(str1, len);
+		System.out.println(result);
+	}
+}
+
+class CreateURL
+{
+    public String toCreateURL(char[] str, int len)
+    {
+        int scount=0;
+        for(int i=0; i<len; i++)
+        {
+            if(str[i]==' '){
+                scount++;
+            }
+            
+        }
+        
+        if(len<str.length)str[len]='\0';
+        
+        if(scount!=0)
+        {
+        int index = len + scount * 2 ;
+        
+        for(int i=len-1; i>=0; i--)
+        {
+            if(str[i]==' ')
+            {
+                str[index-1]='0';
+                str[index-2]='2';
+                str[index-3]='%';
+                index = index-3;
+            }
+            else{
+            str[index - 1] = str[i];
+            index--;
+            }
+        }
+        }
+        String res = String.valueOf(str);
+        return res;
+       
+    }
+}
