@@ -1,0 +1,42 @@
+/* Determine if a string is a permutation of another string (case insensitive)*/
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{
+	public static void main (String[] args)
+	{
+	    Permutation p = new Permutation();
+	    String str1 = "Nod";
+	    String str2 = "don";
+	    boolean result = p.permutationString(str1, str2);
+	    System.out.print(result);
+	}
+}
+
+class Permutation
+{
+    public boolean permutationString(String str1, String str2)
+    {
+        if(str1.length()!=str2.length()) return false;
+        
+        int[] count = new int[128];
+        for(int i=0; i<str1.length(); i++)
+        {
+            int val = Character.toLowerCase(str1.charAt(i));
+            count[val]++;
+        }
+        
+        for(int i=0; i<str2.length(); i++)
+        {
+            int val2 = Character.toLowerCase(str2.charAt(i));
+            count[val2]--;
+            if(count[val2]<0)
+                return false;
+        }
+        
+        return true;
+    }
+}
