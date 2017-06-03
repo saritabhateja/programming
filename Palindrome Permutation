@@ -1,0 +1,45 @@
+/* Palindrome Permutation */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class PalPer
+{
+	public static void main (String[] args)
+	{
+		String str = "Tact Coa";
+		PalindromePer pp = new PalindromePer();
+		Boolean result = pp.PalPermutation(str);
+		System.out.println(result);
+	}
+}
+
+class PalindromePer
+{
+    public boolean PalPermutation(String str)
+    {
+        str = str.toLowerCase();
+        str = str.replaceAll("\\s","");
+        HashMap <Character, Integer> map = new HashMap<>();
+        for(int i=0; i<str.length(); i++)
+        {
+            if(map.containsKey(str.charAt(i)))
+                map.put(str.charAt(i), map.get(str.charAt(i))+1);
+            else
+                map.put(str.charAt(i), 1);
+        }
+        
+        int count=0;
+        for(Integer value : map.values())
+        {
+            if(value%2 != 0)
+                count++;
+        }
+        
+        if(count>1)
+            return false;
+        else
+            return true;
+    }
+}
