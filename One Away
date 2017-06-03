@@ -1,0 +1,74 @@
+/* One away - insertion, removal, replacement */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class OneAway
+{
+	public static void main (String[] args)
+	{
+	    OneAwayIm oa = new OneAwayIm();
+	    String str1 = "bake";
+	    String str2 = "bak";
+	    boolean result = oa.oneAwayImp(str1,str2);
+	    System.out.print(result);
+	}
+}
+
+class OneAwayIm
+{
+    public boolean oneAwayImp(String str1, String str2)
+    {
+        if(Math.abs(str1.length()-str2.length()) > 1) return false;
+        
+        if(str1.length() == str2.length())
+            return replace(str1, str2);
+        else
+            return insert(str1, str2);
+        
+    }
+    
+    public boolean replace(String s1, String s2)
+    {
+        boolean check = false;
+        for(int i=0; i<s1.length(); i++)
+        {
+            if(s1.charAt(i) != s2.charAt(i))
+            {
+                if(check){
+                    return false;
+                }
+            check = true;
+            }
+        }
+        return true;
+    }
+    
+    public boolean insert(String st1, String st2)
+    {
+        String large = st1.length()>st2.length() ? st1 : st2;
+        String small = st1.length()<st2.length() ? st1 : st2;
+    
+    boolean check = false;
+    int l1 = 0;
+    int l2 = 0;
+    while(l1<st1.length() && l2<st2.length())
+    {
+        if(st1.charAt(l1) != st2.charAt(l2))
+        {
+            if(check)
+                return false;
+            check = true;
+            l1++;
+        }
+        else
+        {
+            l1++;
+            l2++;
+        }
+        
+    }
+    return true;
+    }
+}
