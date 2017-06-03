@@ -1,0 +1,45 @@
+/* String Compression */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Compression
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		String str = "Aaaaaaaaaaaabcde";
+		StringCompression sc = new StringCompression();
+		sc.StringComp(str);
+	}
+}
+
+class StringCompression
+{
+    public void StringComp(String str)
+    {
+        HashMap<Character, Integer> map = new HashMap<>();
+        int total = 0;
+        for(int i=0; i<str.length(); i++)
+        {
+            if(map.containsKey(str.charAt(i)))
+            {
+                map.put(str.charAt(i), map.get(str.charAt(i))+1);
+            }
+            else
+            {
+                map.put(str.charAt(i), 1);
+            }
+        }
+        
+        String res="";
+        for(Character key : map.keySet())
+        {
+           res = res + key + ""+ map.get(key);
+        }
+        if(res.length()<str.length())
+                System.out.println(res);
+            else
+                System.out.println(str);
+    }
+}
