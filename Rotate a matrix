@@ -1,0 +1,56 @@
+/* Rotate a 2D matrix clockwise by 90 degrees */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Rotate
+{
+    public static void main (String[] args)
+    {
+        int[][] matrix = new int[][]{ 
+                    {1,2,3,4},
+                    {5,6,7,8},
+                    {9,10,11,12},
+                    {13,14,15,16} };
+        
+        RotateMatrix rm = new RotateMatrix();
+        boolean result = rm.rotation(matrix);
+        System.out.println(result);
+        
+    }
+}
+
+class RotateMatrix {
+    public boolean rotation(int[][] matrix)
+    {
+        if(matrix.length==0 || matrix.length!=matrix[0].length) return false;
+        
+        int len = matrix.length;
+        for(int i = 0; i < len/2; i++)
+        {
+            int f = i;
+            int l = len-i-1;
+        
+            for(int j = f; j < l; j++)
+            {
+                int index = j-f;
+                
+                int temp = matrix[f][j];
+                matrix[f][j] = matrix[l-index][f];
+                matrix[l-index][f] = matrix[l][l-index];
+                matrix[l][l-index] = matrix[j][l];
+                matrix[j][l] = temp;
+            }
+        }
+        for(int i=0; i<matrix.length; i++)
+        {
+            for(int j=0; j<matrix.length; j++)
+            {
+                System.out.print(matrix[i][j]+" ");
+            }
+            System.out.println();
+        }
+        return true;
+    }
+}
