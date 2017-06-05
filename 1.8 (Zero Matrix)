@@ -1,0 +1,77 @@
+/* Zero Matrix */
+
+public class Solution {
+    public void setZeroes(int[][] matrix) {
+        int row = matrix.length;
+        int col = matrix[0].length;
+        boolean frow = false;
+        boolean fcol = false;
+        
+        for(int i=0; i<col; i++)
+        {
+            if(matrix[0][i]==0){
+                frow=true;
+                break;
+            }
+        }
+        
+        for(int i=0; i<row; i++)
+        {
+            if(matrix[i][0]==0){
+                fcol=true;
+                break;
+            }
+        }
+        
+        for(int i=1; i<row; i++)
+        {
+            for(int j=1; j<col; j++)
+            {
+                if(matrix[i][j]==0)
+                {
+                    matrix[0][j]=0;
+                    matrix[i][0]=0;
+                }
+            }
+        }
+        
+        for(int i=1; i<col; i++)
+        {
+            if(matrix[0][i]==0)
+            {
+                zeroCol(matrix,i);
+            }
+        }
+        
+        for(int j=1; j<row; j++)
+        {
+            if(matrix[j][0]==0)
+            {
+                zeroRow(matrix,j);
+            }
+        }
+        
+        if(frow)
+        {
+            zeroRow(matrix,0);
+        }
+        
+        if(fcol)
+        {
+            zeroCol(matrix,0);
+        }
+        
+    }
+    
+    public void zeroRow(int[][] matrix, int row)
+    {
+        for(int i=0; i<matrix[0].length; i++)
+            matrix[row][i]=0;
+    }
+    
+     public void zeroCol(int[][] matrix, int col)
+    {
+        for(int i=0; i<matrix.length; i++)
+            matrix[i][col]=0;
+    }
+}
