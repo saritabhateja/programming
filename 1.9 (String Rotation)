@@ -1,0 +1,38 @@
+/* String Rotation */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class StringRotate
+{
+    public static void main (String[] args)
+    {
+        String str1 = "waterbottle";
+        String str2 = "erbottlewat";
+        StringRotation sr = new StringRotation();
+        boolean result = sr.stringRotateCheck(str1, str2);
+        System.out.print(result);
+    }
+}
+
+class StringRotation
+{
+    public boolean stringRotateCheck(String str1, String str2)
+    {
+        if(str1.length()==str2.length() && str1.length()!=0)
+        {
+        str1 = str1 + str1;
+        }
+        return isString(str1, str2);
+    }
+    
+    public boolean isString(String st1, String st2)
+    {
+        if(st1.indexOf(st2) > 0){
+            return true;
+        }
+        return false;
+    }
+    
+}
