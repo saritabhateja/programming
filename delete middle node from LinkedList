@@ -1,0 +1,65 @@
+/* delete middle node from LinkedList */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class ListNode {
+ 
+    static Node head;
+ 
+    static class Node {
+ 
+        int val;
+        Node next;
+ 
+        Node(int d) {
+            val = d;
+            next = null;
+        }
+    }
+      
+      
+      public static void main (String[] args) throws java.lang.Exception
+    {
+        ListNode ll = new ListNode();
+        ll.head = new Node(1);
+        ll.head.next = new Node(5);
+        ll.head.next.next = new Node(4);
+        ll.head.next.next.next = new Node(6);
+        ll.head.next.next.next.next = new Node(8);
+        ll.head.next.next.next.next.next = new Node(2);
+        ll.head.next.next.next.next.next.next = new Node(2);
+        Solution sol = new Solution();
+        int p = 2;
+        Node result = sol.partition(ll.head);
+          
+         while(result!=null){
+         
+            System.out.print(result.val + " ");
+             result = result.next;
+         }
+    }
+  }
+ 
+ class Solution {
+    public ListNode.Node partition(ListNode.Node head) {
+        
+        if(head==null || head.next==null) return head;
+        
+        ListNode.Node prev = head;
+        ListNode.Node curr = head;
+        
+        while(curr.next!=null)
+        {
+            curr = curr.next.next;
+            prev = prev.next;
+        }
+        
+        prev.val = prev.next.val;
+        prev.next = prev.next.next;
+        
+        return head;
+        
+    }
+}
