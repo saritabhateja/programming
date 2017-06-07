@@ -1,0 +1,70 @@
+/* Remove duplicates from unsorted LinkedList */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class ListNode {
+ 
+    static Node head;
+ 
+    static class Node {
+ 
+        int val;
+        Node next;
+ 
+        Node(int d) {
+            val = d;
+            next = null;
+        }
+    }
+      
+      
+      public static void main (String[] args) throws java.lang.Exception
+    {
+        ListNode ll = new ListNode();
+        ll.head = new Node(1);
+        ll.head.next = new Node(4);
+        ll.head.next.next = new Node(2);
+        ll.head.next.next.next = new Node(2);
+        Solution sol = new Solution();
+        int p = 3;
+        Node result = sol.partition(ll.head);
+          
+        while(result !=null)
+        {
+            System.out.print(result.val + " ");
+            result = result.next;
+        }
+    }
+  }
+ 
+ class Solution {
+    public ListNode.Node partition(ListNode.Node head) {
+        
+        if(head==null || head.next==null) return head;
+        
+        ListNode.Node prev = head;
+        ListNode.Node curr = head.next;
+        HashSet<Integer> set = new HashSet<>();
+        set.add(head.val);
+        
+        while(curr!=null)
+        {
+            if(set.contains(curr.val))
+            {
+                prev.next = curr.next;
+                curr = curr.next;
+            }
+            else
+            {
+                set.add(curr.val);
+                curr = curr.next;
+                prev = prev.next;
+            }
+        }
+        
+        return head;
+        
+    }
+}
