@@ -1,0 +1,65 @@
+/* Return kth to last in LinkedList */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class ListNode {
+ 
+    static Node head;
+ 
+    static class Node {
+ 
+        int val;
+        Node next;
+ 
+        Node(int d) {
+            val = d;
+            next = null;
+        }
+    }
+      
+      
+      public static void main (String[] args) throws java.lang.Exception
+    {
+        ListNode ll = new ListNode();
+        ll.head = new Node(1);
+        ll.head.next = new Node(5);
+        ll.head.next.next = new Node(4);
+        ll.head.next.next.next = new Node(6);
+        ll.head.next.next.next.next = new Node(8);
+        ll.head.next.next.next.next.next = new Node(2);
+        Solution sol = new Solution();
+        int p = 2;
+        Node result = sol.partition(ll.head, p);
+         
+            System.out.print(result.val + " ");
+    }
+  }
+ 
+ class Solution {
+    public ListNode.Node partition(ListNode.Node head, int kth) {
+        
+        if(head==null || head.next==null) return head;
+        
+        ListNode.Node prev = head;
+        ListNode.Node curr = head;
+        int count=1;
+        
+        while(count<=kth)
+        {
+            curr = curr.next;
+            count++;
+        }
+        
+        
+        while(curr!=null)
+        {
+            curr = curr.next;
+            prev = prev.next;
+        }
+        
+        return prev;
+        
+    }
+}
