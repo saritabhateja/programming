@@ -1,0 +1,73 @@
+/* Partition Linked List around a value */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class ListNode {
+ 
+    static Node head;
+ 
+    static class Node {
+ 
+        int val;
+        Node next;
+ 
+        Node(int d) {
+            val = d;
+            next = null;
+        }
+    }
+      
+      
+      public static void main (String[] args) throws java.lang.Exception
+    {
+        ListNode ll = new ListNode();
+        ll.head = new Node(1);
+        ll.head.next = new Node(4);
+        ll.head.next.next = new Node(3);
+        ll.head.next.next.next = new Node(2);
+        Solution sol = new Solution();
+        int p = 3;
+        Node result = sol.partition(ll.head, p);
+          
+        while(result !=null)
+        {
+            System.out.print(result.val + " ");
+            result = result.next;
+        }
+    }
+  }
+ 
+ class Solution {
+    public ListNode.Node partition(ListNode.Node head, int x) {
+        
+        if(head==null || head.next==null) return head;
+        
+        ListNode.Node first = new ListNode.Node(0);
+        ListNode.Node last = new ListNode.Node(0);
+        ListNode.Node f1 = first;
+        ListNode.Node l1 = last;
+        
+        while(head!=null)
+        {
+            if(head.val < x)
+            {
+                first.next = head;
+                first = first.next;
+            }
+            else
+            {
+                last.next = head;
+                last = last.next;
+            }
+            
+            head = head.next;
+        }
+        
+        first.next = l1.next;
+        last.next = null;
+        return f1.next;
+        
+    }
+}
