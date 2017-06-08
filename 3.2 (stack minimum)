@@ -1,0 +1,40 @@
+/* Stack minimum */
+
+public class MinStack {
+
+    Stack<Integer> data;
+    Stack<Integer> min_d;
+    
+    public MinStack() {
+        data = new Stack<Integer>();
+        min_d = new Stack<Integer>();
+    }
+    
+    public void push(int x) {
+        if(x<=getMin())
+        {
+            min_d.push(x);
+        }
+        data.push(x);
+    
+    }
+    
+    public void pop() {
+        int remove = data.pop();
+        if(remove == getMin())
+        {
+            min_d.pop();
+        }
+    }
+    
+    public int top() {
+        return data.peek();
+    }
+    
+    public int getMin() {
+        if(min_d.isEmpty())
+            return Integer.MAX_VALUE;
+        else
+            return min_d.peek();
+    }
+}
