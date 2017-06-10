@@ -1,0 +1,42 @@
+/* implement Queue via Stacks */
+
+public class MyQueue {
+
+    Stack<Integer> prim;
+    Stack<Integer> sec;
+    public MyQueue() {
+        prim = new Stack<>();
+        sec = new Stack<>();
+    }
+    
+    public void push(int x) {
+        if(prim.isEmpty())
+            prim.push(x);
+        else
+        {
+            while(!prim.isEmpty())
+            {
+                int y = prim.pop();
+                sec.push(y);
+            }
+            prim.push(x);
+            while(!sec.isEmpty())
+            {
+                int z = sec.pop();
+                prim.push(z);
+            }
+        }
+    }
+    
+    public int pop(){
+            return prim.pop();
+    }
+   
+    public int peek() {
+        return prim.peek();
+    }
+
+    public boolean empty() {
+        return prim.isEmpty();
+    }
+}
