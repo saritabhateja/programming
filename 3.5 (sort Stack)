@@ -1,0 +1,62 @@
+/* sort Stack */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Solution
+{
+    public static void main (String[] args) throws java.lang.Exception
+    {
+        Solution sol = new Solution();
+        sol.push(3);
+        sol.push(2);
+        sol.push(5);
+        sol.push(7);
+        sol.push(1);
+        sol.push(9);
+        int pop = sol.pop();
+        System.out.println("pop " + pop);
+        int peek = sol.peek();
+        System.out.println("peek " + peek);
+        boolean empty = sol.isEmpty();
+        System.out.println(empty);
+    }
+ 
+    Stack<Integer> prim = new Stack<>();
+    Stack<Integer> sec = new Stack<>();
+    public void push(int x)
+    {
+        if(prim.isEmpty())
+            prim.push(x);
+        else
+        {
+            while(!prim.isEmpty() && x>prim.peek())
+            {
+                int y = prim.pop();
+                sec.push(y);
+            }
+            prim.push(x);
+            while(!sec.isEmpty())
+            {
+                int z = sec.pop();
+                prim.push(z);
+            }
+        }
+    }
+ 
+    public int pop()
+    {
+        return prim.pop();
+    }
+ 
+    public int peek()
+    {
+        return prim.peek();
+    }
+ 
+    public boolean isEmpty()
+    {
+        return prim.isEmpty();
+    }
+}
