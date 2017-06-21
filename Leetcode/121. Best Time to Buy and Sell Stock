@@ -1,0 +1,29 @@
+public class Solution {
+    public int maxProfit(int[] prices) {
+        if(prices.length==0|| prices.length==1)return 0;
+        
+        int[] diff = new int[prices.length-1];
+        
+        for(int i=1; i<prices.length; i++)
+        {
+            diff[i-1] = prices[i]-prices[i-1];
+        }
+        
+        return kd(diff);
+    }
+    
+    public int kd(int[] diff)
+    {
+        int maxc=0, maxg = 0;
+        if(diff[0]>=0){
+             maxc = diff[0]; maxg = diff[0]; }
+        
+        for(int i=1; i<diff.length; i++)
+        {
+            maxc = Math.max(diff[i], maxc+diff[i]);
+            if(maxg<maxc && maxc!=0)
+                maxg = maxc;
+        }
+        return maxg;
+    }
+}
