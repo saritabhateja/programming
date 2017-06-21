@@ -1,0 +1,20 @@
+//using split
+public class Solution {
+    public int lengthOfLastWord(String s) {
+        String[] arr = s.split("\\s+");
+        
+        if(arr.length!=0)
+            return arr[arr.length-1].length();
+        else
+            return 0;
+            
+    }
+}
+//using lastIndexOf
+public class Solution {
+    public int lengthOfLastWord(String s) {
+            s=s.trim();
+            int index = s.lastIndexOf(' ')+1;
+            return s.length() - index;
+    }
+}
