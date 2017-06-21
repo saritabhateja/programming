@@ -1,0 +1,31 @@
+public class Solution {
+    public String getPermutation(int n, int k) {
+        
+        int[] fact = new int[n+1];
+        ArrayList<Integer> arr = new ArrayList<>();
+        int f = 1;
+        fact[0]=1;
+        
+        for(int i=1; i<=n; i++)
+        {
+            f *= i;
+            fact[i] = f;
+        }
+        
+        for(int i=1; i<=n; i++)
+            arr.add(i);
+        
+        StringBuilder sb = new StringBuilder();
+        k--;
+        
+        for(int i=1; i<=n; i++)
+        {
+            int index = k/fact[n-i];
+            sb.append(arr.get(index));
+            arr.remove(index);
+            k = k-index*fact[n-i];
+        }
+        
+        return sb.toString();
+    }
+}
