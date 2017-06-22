@@ -1,4 +1,5 @@
-/* String Compression */
+/* String Compression 1- Using hashmap
+		      2- loop and StringBuilder */
 
 import java.util.*;
 import java.lang.*;
@@ -41,5 +42,52 @@ class StringCompression
                 System.out.println(res);
             else
                 System.out.println(str);
+    }
+}
+
+// 2- StringBuilder and loop
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Compression
+{
+    public static void main (String[] args) throws java.lang.Exception
+    {
+        String str = "aaaaaaabbbbbbbbcde";
+        StringCompression sc = new StringCompression();
+        String s =sc.StringComp(str);
+        System.out.println(s);
+    }
+}
+
+class StringCompression
+{
+    public String StringComp(String str)
+    {
+        StringBuilder sb = new StringBuilder();
+        int i=0;
+        
+        while(i<str.length())
+        {
+            char c = str.charAt(i);
+            int count = 1;
+            
+            for(int j = i+1; j<str.length(); j++)
+            {
+                if(c==str.charAt(j))
+                    count++;
+                else
+                    break; 
+            }
+            sb.append(c);
+            sb.append(count);
+            if(sb.length()>str.length())
+                return str;
+            i=i+count;
+        }
+        
+        return sb.toString();
     }
 }
