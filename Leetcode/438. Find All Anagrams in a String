@@ -1,0 +1,26 @@
+public class Solution {
+    public List<Integer> findAnagrams(String s, String p) {
+        List<Integer> mylist = new ArrayList<>();
+        int[] arr = new int[128];
+        
+        int start=0, end=0, count = p.length();
+        for(char c : p.toCharArray())
+            arr[c]++;
+            
+        while(end<s.length())
+        {
+            if(arr[s.charAt(end)]>0)
+                count--;
+            
+            arr[s.charAt(end)]--;
+            end++;
+            
+            if(count==0)
+                mylist.add(start);
+            
+            if(end-start==p.length() && arr[s.charAt(start++)]++>=0)
+                count++;
+        }
+        return mylist;
+    }
+}
