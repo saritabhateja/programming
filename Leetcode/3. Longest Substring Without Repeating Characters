@@ -1,0 +1,22 @@
+//min - inner while loop, max - outer while loop
+
+public class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int[] arr = new int[128];
+        
+        int start=0, end=0, count=0, res=0;
+        
+        while(end<s.length())
+        {
+           if(arr[s.charAt(end++)]++ > 0)count++;
+           
+           while(count>0)
+           {
+              if(arr[s.charAt(start++)]-- > 1) count--;
+           }
+           
+           res = Math.max(res, end-start);
+        }
+        return res;
+    }
+}
