@@ -1,0 +1,30 @@
+public class Solution {
+    public int nextGreaterElement(int n) {
+        char[] arr = String.valueOf(n).toCharArray();
+        int i =0;
+        for(i= arr.length-1; i>0; i--)
+        {
+            if(arr[i-1]<arr[i])
+                break;
+        }
+        
+        if(i==0)
+            return -1;
+        
+        int d = arr[i-1]; int s = i;
+        for(int j = i+1; j<arr.length; j++)
+        {
+            if(d < arr[j] && arr[s]>=arr[j])
+                s=j;
+        }
+        
+        char temp = arr[i-1];
+        arr[i-1]=arr[s];
+        arr[s]=temp;
+        
+        Arrays.sort(arr, i, arr.length);
+        Long x = Long.parseLong(new String(arr));
+        return (x <= Integer.MAX_VALUE) ? x.intValue() : -1;
+            
+    }
+}
