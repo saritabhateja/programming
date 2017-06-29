@@ -1,0 +1,16 @@
+import java.lang.*;
+import java.util.*;
+
+class Sol {
+    public static int swapOddEvenBits(int a) {
+        
+        return (((a & 0xaaaaaaaa) >>>1) | ((a & 0x55555555) << 1));
+    }  
+    public static void main(String[] args) {
+        Sol s = new Sol();
+        int a = 23;
+        System.out.println(a + ": " + Integer.toBinaryString(a));
+        int b = s.swapOddEvenBits(a);
+        System.out.println(b + ": " + Integer.toBinaryString(b));
+    }
+}
