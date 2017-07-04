@@ -1,0 +1,41 @@
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+
+class RecursiveFrogJump {
+    public static List <List<Integer>> results = new ArrayList<List<Integer>>();
+    
+    public static void main(String[] args){
+        int sum = 5;    
+        List <Integer> way = new ArrayList<Integer>();
+        printWays(way, 0, sum);
+        System.out.println(results);
+    }
+    
+    public static void printWays(List <Integer> way, int cv, int sum){
+        List <Integer> cw = new ArrayList<Integer>();
+        if(cv < sum)
+        {
+            cw.addAll(way);
+            cw.add(1);
+            printWays(cw, cv+1, sum);
+            
+            cw = new ArrayList<Integer>();
+            cw.addAll(way);
+            cw.add(2);
+            printWays(cw, cv+2, sum);
+        }
+        
+        else if(cv == sum)
+        {
+            results.add(way);
+            return;
+        }
+        
+        else if(cv > sum)
+        {
+            return;
+        }
+
+    }
+}
