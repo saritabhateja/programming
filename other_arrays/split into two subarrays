@@ -1,0 +1,58 @@
+import java.io.*;
+
+class myCode
+{
+    public static void main (String[] args) throws java.lang.Exception
+    {
+        int[] arr = {1 , 2 , 3 , 4 , 5 , 5};
+        helper h = new helper();
+        h.show(arr);   
+    }  
+}
+
+class helper
+{
+    public int split(int[] arr)
+    {
+        int len = arr.length;
+        int sum=0;
+        int j=0;
+        
+        for(int i=0; i<len; i++)
+        {
+            sum += arr[i];
+        }
+        if(sum%2 != 0)
+            return -1;
+        
+        int tsum=0;
+        
+        while(tsum < sum/2)
+        {
+            tsum += arr[j++];
+        }
+        
+        if(sum/2 == tsum)
+            return j;
+        else
+            return -1;
+    }
+    
+    public void show(int[] arr)
+    {
+        int point = split(arr);
+        
+        if(point == -1 || point == arr.length)
+            System.out.println("Not possible");
+        else
+        {
+            for(int i=0; i<arr.length; i++)
+            {
+                if(i == point)
+                    System.out.println();
+                System.out.print(arr[i]+" ");
+            }
+
+        }
+    }
+}
