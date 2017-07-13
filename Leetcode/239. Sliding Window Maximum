@@ -1,0 +1,53 @@
+//Brute-force 
+public class Solution {
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        if(nums.length==0)
+            return new int[0];
+        int i =0;
+        int j = k-1;
+        int[] arr = new int[nums.length-k+1];
+        
+        while(j<nums.length)
+        {
+            arr[i]= max(nums, i, j);
+            i++;
+            j++;
+        }
+        return arr;
+    }
+        
+       public int max(int[] num, int x, int y)
+        {
+            int m = Integer.MIN_VALUE;
+            for(int i=x; i<=y; i++)
+            {
+                if(m < num[i])
+                    m = num[i];
+            }
+            return m;
+        }
+}
+
+//deque
+public class Solution {
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        if(nums.length==0)
+            return new int[0];
+        int[] arr = new int[nums.length-k+1];
+        int c = 0;
+        Deque<Integer> deque = new ArrayDeque<>();
+        
+        for(int i=0; i<nums.length; i++)
+        {
+            while(!deque.isEmpty() && deque.peek() < i-k+1) deque.poll();
+            
+            while(!deque.isEmpty() && nums[deque.peekLast()] < nums[i]) deque.pollLast();
+            
+            deque.offer(i);
+            
+            if(i>=k-1) arr[c++] = nums[deque.peek()];
+        }
+            
+        return arr;
+    }
+}
