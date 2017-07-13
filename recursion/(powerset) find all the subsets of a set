@@ -1,0 +1,37 @@
+import java.util.*;
+
+class Main {
+    public static void main(String[] args) {
+        int[] arr = {1,2,3, 4};
+        Set<List<Integer>> sub = helper(arr);
+        for(List<Integer> l : sub)
+            System.out.println(l);
+    }
+    
+    public static Set<List<Integer>> helper(int[] arr)
+    {
+        List<Integer> ll = new ArrayList<>();
+        for(int i:arr)
+            ll.add(i);
+        Set<List<Integer>> set = new HashSet<List<Integer>>();
+        subset(set, ll);
+        return set;
+    }
+    
+    public static void subset(Set<List<Integer>>set, List<Integer>ll)
+    {
+        if(ll.size()==0)
+            return;
+        
+        set.add(new ArrayList<Integer>(ll));
+        
+        for(int i=0; i<ll.size(); i++)
+        {
+            List<Integer> arr = new ArrayList<>(ll);
+            arr.remove(i);
+            subset(set, arr);
+        }
+        
+        set.add(new ArrayList<Integer>());
+    }
+}
