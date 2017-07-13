@@ -1,0 +1,22 @@
+public class Solution {
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        if(nums.length==0)
+            return new int[0];
+        int[] arr = new int[nums.length-k+1];
+        int c = 0;
+        Deque<Integer> deque = new ArrayDeque<>();
+        
+        for(int i=0; i<nums.length; i++)
+        {
+            while(!deque.isEmpty() && deque.peek() < i-k+1) deque.poll(); // to remove the numbers out of the window
+            
+            while(!deque.isEmpty() && nums[deque.peekLast()] < nums[i]) deque.pollLast(); // to remove numbers less than current number in array so that peek maintains the max number
+            
+            deque.offer(i);
+            
+            if(i>=k-1) arr[c++] = nums[deque.peek()]; // to skip first few numbers fro which no insertion is required
+        }
+            
+        return arr;
+    }
+}
