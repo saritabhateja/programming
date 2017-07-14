@@ -1,0 +1,13 @@
+public class Solution {
+    public double myPow(double x, int n) {
+        double res = 1;
+        long a = Math.abs((long)n);
+        while(a>0)
+        {
+            if((a & 1)==1) res *= x;
+            a >>= 1;
+            x *= x;
+        }
+        return (n>0)? res : 1/res;
+    }
+}
