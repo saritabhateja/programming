@@ -1,0 +1,27 @@
+// Given two strings s and t. Find the maximum number of times that one can recursively remove t from s.
+
+import java.io.*;
+import java.util.*;
+
+class myCode
+{
+    public static void main (String[] args) throws java.lang.Exception
+    {
+        myCode m = new myCode();
+        String s = "ababcaabcbc";
+        String t = "abc";
+        
+        int result = m.remstr(s,t);
+        System.out.println(result);
+    }
+    
+    public int remstr(String s, String t)
+    {
+        int i = s.indexOf(t);
+        
+        if(i!=-1)
+            return remstr(s.substring(0, i) + s.substring(i+t.length(), s.length()), t)+1;
+        else
+            return 0;
+    }
+}
