@@ -1,0 +1,35 @@
+class Solution {
+    public boolean checkRecord(String s) {
+        int acount = 0, lcount=0;
+        for(int i=0; i<s.length(); i++)
+        {
+            if(s.charAt(i) == 'A')
+            {
+                acount++;
+                lcount=0;
+            }
+            
+            else if(s.charAt(i) == 'L')
+                lcount++;
+            
+            else
+                lcount=0;
+
+            
+            if(acount>1 || lcount>2)
+                return false;
+        }
+        
+        return (acount>1 || lcount>2) ? false : true;
+    }
+}
+
+
+
+
+
+class Solution {
+    public boolean checkRecord(String s) {
+        return (s.indexOf("A") != s.lastIndexOf("A") || s.contains("LLL")) ? false : true;
+    }
+}
