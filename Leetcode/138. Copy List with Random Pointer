@@ -1,0 +1,74 @@
+// Using HashMap
+
+public class Solution {
+    public RandomListNode copyRandomList(RandomListNode head) {
+        if (head == null) {
+            return null;
+        }
+        
+        final Map<RandomListNode, RandomListNode> map = new HashMap<RandomListNode, RandomListNode>();
+        RandomListNode cur = head;
+        
+        while(cur != null) {
+            map.put(cur, new RandomListNode(cur.label));
+            cur = cur.next;
+        }
+        
+        for (RandomListNode n : map.keySet()) {
+            map.get(n).next = map.get(n.next);
+            map.get(n).random = map.get(n.random);
+        }
+        return map.get(head);
+    }
+}
+
+// with contant extra space
+
+public class Solution {
+    public RandomListNode copyRandomList(RandomListNode head) {
+        if (head == null) {
+            return null;
+        }
+        
+        // embed new nodes in original linked list 1-1'-2-2'
+        RandomListNode node = head, next = head;
+        
+        while(node != null)
+        {
+            next = node.next;
+            RandomListNode n = new RandomListNode(node.label);
+            node.next = n;
+            n.next = next;
+            
+            node = next;
+        }
+        // point random
+        node = head;
+        while(node != null && node.next!=null)
+        {
+            if(node.random != null)
+                node.next.random = node.random.next;
+            node = node.next.next;
+        }
+        
+        // extract new list and restore original
+        node = head;
+        RandomListNode newhead = new RandomListNode(0);
+        RandomListNode copynext = newhead, copy = newhead;
+        
+        while(node != null && node.next!=null)
+        {
+            next = node.next.next;
+            
+            copynext = node.next;
+            copy.next = copynext;
+            copy = copynext;
+            
+            node.next = next;
+            
+            node = next;
+        }
+        
+        return newhead.next;
+    }
+}
