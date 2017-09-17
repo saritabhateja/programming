@@ -1,0 +1,96 @@
+public class MinStack {
+
+    private class Node
+    {
+        int val;
+        Node next;
+        int min;
+        
+        public Node(int val)
+        {
+            this.val = val;
+            next = null;
+            min = val;
+        }
+    }
+    
+    Node top;
+    public void push(int x)
+    {
+        if(top == null)
+            top = new Node(x);
+        else
+        {
+            Node n = new Node(x);
+            n.next = top;
+            n.min = Math.min(top.min, x);
+            top = n;
+        }
+    }
+    
+    public void pop()
+    {
+        if(top == null)
+            return;
+        top = top.next;
+    }
+    
+    public int top()
+    {
+        if(top==null)
+            return 0;
+        else
+            return top.val;
+    }
+    
+    public int getMin()
+    {
+        if(top == null)
+            return Integer.MIN_VALUE;
+        else
+            return top.min;
+    }
+}
+
+// Using one stack
+
+public class MinStack {
+
+    Stack<Long> stack = new Stack<>();;
+    long min = Integer.MAX_VALUE;
+    
+    public void push(int x)
+    {
+        if(stack.isEmpty()){
+            stack.push(0L);
+            min = x;
+        }
+        else
+        {
+            stack.push(x-min);
+            if(x-min<0) min =x;
+        }
+            
+    }
+    
+    public void pop()
+    {
+        long val = stack.pop();
+        if(val < 0)
+            min = min-val;
+    }
+    
+    public int top()
+    {
+        long val = stack.peek();
+        if(val > 0)
+            return (int)(val+min);
+        else
+            return (int)(min);
+    }
+    
+    public int getMin()
+    {
+        return (int)(min);
+    }
+}
