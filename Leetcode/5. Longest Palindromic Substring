@@ -1,0 +1,34 @@
+class Solution {
+    private int start, maxlen;
+    
+    public String longestPalindrome(String s) {
+        if(s.length() == 0) return null;
+        if(s.length() < 2) return s;
+        
+        boolean flag = false;
+        
+        for(int i=0; i<s.length(); i++)
+        {
+            checkPalindrome(s, i, i+1);
+            checkPalindrome(s, i, i);
+        }
+        
+        String result = s.substring(start, start + maxlen);
+        return result;
+    }
+    
+    private void checkPalindrome(String s, int k, int j)
+    {
+        while(k >= 0 && j < s.length() && s.charAt(k) == s.charAt(j))
+        {
+            k--;
+            j++;
+        }
+        
+        if(maxlen < j-k-1)
+        {
+            maxlen = j-k-1;
+            start = k+1;
+        }
+    }
+}
