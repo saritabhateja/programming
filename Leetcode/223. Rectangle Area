@@ -1,0 +1,17 @@
+class Solution {
+    public int computeArea(int A, int B, int C, int D, int E, int F, int G, int H) {
+        int areaRec1 = (C-A) * (D-B);
+        int areaRec2 = (G-E) * (H-F);
+        int totalarea = areaRec1 + areaRec2;
+        
+        int l = Math.max(A, E);
+        int r = Math.min(C, G);
+        int b = Math.max(B, F);
+        int u = Math.min(D, H);
+        
+        if(r > l && u > b)
+            return totalarea - ((r-l) * (u-b));
+        else
+            return totalarea;
+    }
+}
