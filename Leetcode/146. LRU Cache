@@ -1,0 +1,107 @@
+class LRUCache {
+    
+    private class DoublyLinked{
+        int key;
+        int val;
+        DoublyLinked prev;
+        DoublyLinked next;
+        
+        public DoublyLinked(int key, int val)
+        {
+            this.key = key;
+            this.val = val;
+            prev = null;
+            next = null;
+        }
+    }
+    
+    public void add(DoublyLinked node)
+    {
+        node.prev = head;
+        node.next = head.next;
+        
+        head.next.prev = node;
+        
+        head.next = node;
+    }
+    
+    public void remove(DoublyLinked node)
+    {
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+    }
+    
+    public void addToHead(DoublyLinked node)
+    {
+        remove(node);
+        add(node);
+    }
+    
+    public DoublyLinked findTail()
+    {
+        return tail.prev;
+    }
+
+    Map<Integer, DoublyLinked> map = new HashMap<>();
+    int capacity;
+    int count;
+    DoublyLinked head, tail;
+    
+    public LRUCache(int capacity) {
+        this.capacity = capacity;
+        count = 0;
+        
+        head = new DoublyLinked(0, 0);
+        tail = new DoublyLinked(-1, -1);
+        
+        head.next = tail;
+        tail.prev = head;
+    }
+    
+    public int get(int key) {
+        DoublyLinked node = map.get(key);
+        
+        if(node == null)
+            return -1;
+        
+        else
+            addToHead(node);
+        return node.val;
+    }
+    
+    public void put(int key, int value) {
+        DoublyLinked node = map.get(key);
+        
+        if(node == null)
+        {
+            node = new DoublyLinked(key, value);
+            
+            map.put(key, node);
+            add(node);
+            ++count;
+            
+            if(count > capacity)
+            {
+                DoublyLinked del = findTail();
+                remove(del);
+                map.remove(del.key);
+                
+                --count;
+            }
+        }
+        
+        else
+        {
+            node.val = value;
+            
+            addToHead(node);
+        }
+    }
+}
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache obj = new LRUCache(capacity);
+ * int param_1 = obj.get(key);
+ * obj.put(key,value);
+ */
