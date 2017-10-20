@@ -1,0 +1,48 @@
+// by swapping and flipping
+
+class Solution {
+    public void rotate(int[][] matrix) {
+        
+        for(int i=0; i<matrix.length; i++)
+        {
+            for(int j=i; j<matrix[0].length; j++)
+            {
+                int temp = matrix[i][j];
+                matrix[i][j] = matrix[j][i];
+                matrix[j][i] = temp;
+            }
+        }
+        
+        for(int i=0; i<matrix.length/2; i++)
+        {
+            for(int j=0; j<matrix.length; j++)
+            {
+                int temp = matrix[j][i];
+                matrix[j][i] = matrix[j][matrix.length-1-i];
+                matrix[j][matrix.length-1-i] = temp;
+            }
+        }
+    } 
+}
+
+// swap within limits
+
+class Solution {
+    public void rotate(int[][] matrix) {
+        int len = matrix.length;
+        int imax = (matrix.length + 1)/2;
+        int jmax = matrix.length/2;
+        
+        for(int i=0; i<imax; i++)
+        {
+            for(int j=0; j<jmax; j++)
+            {
+                int temp = matrix[i][j];
+                matrix[i][j] = matrix[len-1-j][i];
+                matrix[len-1-j][i] = matrix[len-1-i][len-1-j];
+                matrix[len-1-i][len-1-j] = matrix[j][len-1-i];
+                matrix[j][len-1-i] = temp;
+            }
+        }
+    }
+}
