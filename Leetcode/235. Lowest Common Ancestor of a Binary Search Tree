@@ -1,0 +1,66 @@
+// iterative 1
+
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        while(root != null)
+        {
+            if(p.val < root.val && q.val < root.val)
+                root = root.left;
+            else if(p.val > root.val && q.val > root.val)
+                root = root.right;
+            else
+                return root;
+        }
+        return root;
+    }
+}
+
+// iterative 2
+
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        HashMap<TreeNode, TreeNode> map = new HashMap<>();
+        Queue<TreeNode> queue = new LinkedList<>();
+        map.put(root, null);
+        queue.add(root);
+        
+        while(!map.containsKey(p) || !map.containsKey(q))
+        {
+            TreeNode r = queue.poll();
+            if(r != null){
+                map.put(r.left, r);
+                map.put(r.right, r);
+                queue.add(r.left);
+                queue.add(r.right);
+            }
+            
+        }
+        
+        Set<TreeNode> set = new HashSet<>();
+        
+        while(!set.contains(null))
+        {
+            set.add(p);
+            p = map.get(p);
+        }
+        
+        while(!set.contains(q)){
+            q = map.get(q);
+        }
+        return q;
+    }
+}
+
+// recursive
+
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if(p.val < root.val && q.val < root.val)
+            return lowestCommonAncestor(root.left, p, q);
+        else if (p.val > root.val && q.val > root.val)
+            return lowestCommonAncestor(root.right, p, q);
+        
+        else
+            return root;
+    }
+}
