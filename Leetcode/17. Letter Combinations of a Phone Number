@@ -1,0 +1,24 @@
+class Solution {
+    public List<String> letterCombinations(String digits) {
+        String[] nums = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        List<String> res = new ArrayList<>(); 
+        if(digits.length()==0) return res;
+        res.add("");
+        
+        for(int i=0; i<digits.length(); i++){
+            res = combine(nums[digits.charAt(i)-'0'], res);
+        }
+        
+        return res;
+    }
+    
+    private List<String> combine(String s, List<String> res){
+        List<String> temp = new ArrayList<>();
+        
+        for(int i=0; i<s.length(); i++){
+            for(String s1 : res)
+                temp.add(s1 + s.charAt(i));
+        }
+        return temp;
+    }
+}
