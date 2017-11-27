@@ -1,0 +1,27 @@
+/* for first 2 posts- diffways - k*(k-1)
+                      sameways - k
+   for 3rd post, we calculate diffways and sameways as follows:
+    - if the previous 2 posts are of different colors, we may paint this post same as of that of previous color - diffways * 1
+    - if the previous 2 posts are of different colors, we may stick to choose different color this time as well - diffways * (k-1)
+    - if the previous 2 posts are of same colors, we have to choose different color other than the previous one - sameways * (k-1)
+    hence, sameways = diffways
+          diffways = (sameways + diffways) * (k-1)
+           
+
+class Solution {
+    public int numWays(int n, int k) {
+        if(n <= 0)
+            return 0;
+        if (n==1) return k;
+        
+        int diffways = k*(k-1);
+        int sameways = k;
+        
+        for(int i=2; i<n; i++){
+            int temp = diffways;                  
+            diffways = (diffways + sameways) * (k-1);
+            sameways = temp;
+        }
+        return diffways + sameways;
+    }
+}
