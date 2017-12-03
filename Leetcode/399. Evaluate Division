@@ -1,0 +1,48 @@
+class Solution {
+    public double[] calcEquation(String[][] equations, double[] values, String[][] queries) {
+        HashMap<String, HashMap<String, Double>> map = new HashMap<>();
+        double[] res = new double[queries.length];
+        int i=0;
+        for(String[] s : equations){
+            if(!map.containsKey(s[0]))
+                map.put(s[0], new HashMap<String, Double>());
+            if(!map.containsKey(s[1]))
+                map.put(s[1], new HashMap<String, Double>());
+            map.get(s[0]).put(s[1], values[i]);
+            map.get(s[1]).put(s[0], 1/values[i]);
+            i++;
+        }
+        
+        for(int j=0; j<queries.length; j++){
+            if(map.containsKey(queries[j][0]) && map.containsKey(queries[j][1])){
+                if(queries[j][0] == queries[j][1])
+                    res[j] = 1.0;
+                else{
+                    double temp = dfs(queries[j][0], queries[j][1], map, new HashSet<String>(), 1.0);
+                    res[j] = temp==0.0 ? -1.0 : temp;
+                }
+            }
+            
+            else
+                res[j] = -1.0;
+        }
+        return res;
+    }
+    
+    private double dfs(String s1, String s2, HashMap<String, HashMap<String, Double>> map, HashSet<String> set, double val){
+        if(map.get(s1).containsKey(s2))
+            return val * map.get(s1).get(s2);
+        
+        double tem = 0.0;
+        for(String t : map.get(s1).keySet()){
+            if(!set.contains(t))
+            {
+                set.add(t);
+                tem = dfs(t, s2, map, set, val*map.get(s1).get(t));
+                if(tem != 0.0) break;
+            }
+        }
+        
+        return tem;
+    }
+}
