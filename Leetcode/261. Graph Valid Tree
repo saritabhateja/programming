@@ -1,0 +1,22 @@
+class Solution {
+    public boolean validTree(int n, int[][] edges) {
+        if(edges.length!=n-1) return false;
+        int[] uf = new int[n];
+        Arrays.fill(uf, -1);
+        
+        for(int i=0; i<edges.length; i++){
+            int x1 = find(uf, edges[i][0]);
+            int x2 = find(uf, edges[i][1]);
+            
+            if(x1==x2)
+                return false;
+            uf[x1] = x2;
+        }
+        return true;
+    }
+    
+    private int find(int[] uf, int x){
+        if(uf[x] == -1) return x;
+        return find(uf, uf[x]);
+    }
+}
